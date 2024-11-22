@@ -82,5 +82,5 @@ export OPENAI_API_KEY="your_api_key_here"
 
 4. Start the server by running the following command
 ```
-flask --app server.py --debug run
+streamlit run app.py
 ```
