@@ -340,122 +340,119 @@ def send_meal_plan(answer):
 
 def reset_chat_history():
     st.session_state.chat_history = []
-
-profile_choice = st.sidebar.selectbox(
-    "Select Profile", 
-    list(predefined_profiles.keys()),
-    on_change=process_new_profile)
-
-
-# Retrieve the selected profile's data
-profile_data = predefined_profiles[profile_choice]
-
-# Auto-fill fields based on the selected profile
-gender_profile = profile_data["gender"]
-age_profile = profile_data["age"]
-size_profile = profile_data["size"]
-weight_profile = profile_data["weight"]
-country_profile = profile_data["country"]
-
-# Sidebar fields update dynamically based on selected profile
-
-st.sidebar.selectbox(
-    "Gender",
-    ["male", "female"],
-    index=["male", "female"].index(gender_profile),
-    on_change=process_new_profile,
-    key='gender'
-)
-st.sidebar.number_input(
-    "Select Your Age",
-    min_value=10,
-    max_value=100,
-    value=age_profile, 
-    step=1,
-    on_change=process_new_profile,
-    key='age'
-)
-st.sidebar.number_input(
-    "Select Your Height",
-    min_value=120,
-    max_value=210,
-    value=size_profile, 
-    step=1,
-    on_change=process_new_profile,
-    key='height'
-)
-
-st.sidebar.number_input(
-    "Enter Your Weight (kg)",
-    min_value=20,  # Minimum weight
-    max_value=300,  # Maximum weight
-    value=weight_profile,  # Default weight
-    step=1,
-    on_change=process_new_profile,
-    key='weight'
-)
-
-# Get a list of all country names using pycountry
-countries = [country.name for country in pycountry.countries]
-
-st.sidebar.selectbox(
-    "Select Your Country", 
-    countries, 
-    index=countries.index(country_profile),
-    on_change=process_new_profile,
-    key='country'
-    )
-    
-
-st.title("CocinEco by A3I-Data Science")
-st.sidebar.title("Settings")
-
-# Initialize chat history
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-
-for msg in st.session_state.messages:
-    st.chat_message(msg["role"]).write(msg["content"])
-
-if "bot_initialized" not in st.session_state:
-    st.session_state.bot_initialized = False
-
-if not st.session_state.bot_initialized:
-    # Global Variables stored in st.session_state
-    st.session_state.llm = None
-    st.session_state.embeddings = None
-    st.session_state.chunk_size = 1000
-    st.session_state.embedding_model_name = "text-embedding-3-small"
-    st.session_state.temperature = 0.2
-    st.session_state.vector_store_from_client = None
-    st.session_state.conversational_rag_chain = None
-    st.session_state.chat_history = []
-    
-    chat_message = "Hello there! I'm CocinEco: an AI assistant that will help you elaborate sustainable meal plans. I will ask you a few questions to understand you better and provide you with personalized nutrition advice. Let's get started! ok?"
-
-    # Initialize chatbot
-    st.chat_message("assistant").write(chat_message)
-    st.session_state.messages.append({"role": "assistant", "content": chat_message})
-
-    # Initialize LLM and Profile
-    init_llm()
+def update_fields_with_profile(profile_data):
+    st.session_state.gender = profile_data["gender"]
+    st.session_state.age = profile_data["age"]
+    st.session_state.height = profile_data["size"]
+    st.session_state.weight = profile_data["weight"]
+    st.session_state.country = profile_data["country"]
     process_new_profile()
+
+def initialize_frontend():
+    st.sidebar.selectbox(
+        "Select Profile", 
+        list(predefined_profiles.keys()),
+        on_change=lambda: update_fields_with_profile(predefined_profiles[st.session_state.profile_choice]),
+        index=None,
+        key="profile_choice")
     
-    st.session_state.bot_initialized = True
+    st.sidebar.selectbox(
+        "Gender",
+        ["male", "female"],
+        on_change=process_new_profile,
+        key='gender'
+    )
+    st.sidebar.number_input(
+        "Select Your Age",
+        min_value=10,
+        max_value=100,
+        step=1,
+        on_change=process_new_profile,
+        key='age'
+    )
+    st.sidebar.number_input(
+        "Select Your Height (cm)",
+        min_value=120,
+        max_value=210,
+        step=1,
+        on_change=process_new_profile,
+        key='height'
+    )
+
+    st.sidebar.number_input(
+        "Enter Your Weight (kg)",
+        min_value=20,  # Minimum weight
+        max_value=300,  # Maximum weight
+        step=1,
+        on_change=process_new_profile,
+        key='weight'
+    )
+
+    # Get a list of all country names using pycountry
+    countries = [country.name for country in pycountry.countries]
+
+    st.sidebar.selectbox(
+        "Select Your Country", 
+        countries, 
+        on_change=process_new_profile,
+        key='country'
+        )
+        
+    st.title("CocinEco by A3I-Data Science")
+    st.sidebar.empty()
 
 
+def initialize_chatbot():
+# Initialize chat history
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
 
-if prompt := st.chat_input():
-    with st.chat_message("user"):
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        st.write(prompt)
+    for msg in st.session_state.messages:
+        st.chat_message(msg["role"]).write(msg["content"])
 
-    with st.spinner("Processing..."):
-        answer = process_prompt(prompt)
-    if "```" in answer:
-        send_meal_plan(answer)
-    else:
-        st.session_state.messages.append({"role": "assistant", "content": answer})
-        st.chat_message("assistant").write(answer)
+    if "bot_initialized" not in st.session_state:
+        st.session_state.bot_initialized = False
+
+    if not st.session_state.bot_initialized:
+        # Global Variables stored in st.session_state
+        st.session_state.llm = None
+        st.session_state.embeddings = None
+        st.session_state.chunk_size = 1000
+        st.session_state.embedding_model_name = "text-embedding-3-small"
+        st.session_state.temperature = 0.2
+        st.session_state.vector_store_from_client = None
+        st.session_state.conversational_rag_chain = None
+        st.session_state.chat_history = []
+        
+        chat_message = "Hello there! I'm CocinEco: an AI assistant that will help you elaborate sustainable meal plans. I will ask you a few questions to understand you better and provide you with personalized nutrition advice. Let's get started! ok?"
+
+        # Initialize chatbot
+        st.chat_message("assistant").write(chat_message)
+        st.session_state.messages.append({"role": "assistant", "content": chat_message})
+
+        init_llm()
+        process_new_profile()
+        st.session_state.bot_initialized = True
 
 
+def main():
+    
+    initialize_frontend()
+    initialize_chatbot()
+
+    if prompt := st.chat_input():
+        with st.chat_message("user"):
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            st.write(prompt)
+
+        with st.spinner("Processing..."):
+            answer = process_prompt(prompt)
+        if "```" in answer:
+            send_meal_plan(answer)
+        else:
+            st.session_state.messages.append({"role": "assistant", "content": answer})
+            st.chat_message("assistant").write(answer)
+
+
+if __name__ == "__main__":
+    main()
