@@ -7,14 +7,24 @@ from profiles import predefined_profiles
 from supported_countries import supported_countries
 from RAG_agent_definition import init_llm
 from RAG_agent_definition import init_conversational_rag_chain
+from RAG_agent_definition import init_chroma_vector_store
 from agents_profiles import all_in_one_agent
 # Initialize LLM and embeddings
 
 def process_new_profile():
 
     reset_chat_history()
-    init_conversational_rag_chain(qa_prompt_generation_function = all_in_one_agent['qa_prompt_generation_function'],
-                                  vector_store = st.session_state.vector_store_from_client)
+
+    st.session_state.llm = init_llm(temperature = st.session_state.temperature,
+                    llm_model = "gpt-4o-mini")
+    st.session_state.vector_store_from_client = init_chroma_vector_store(embedding_model=st.session_state.embedding_model_name ,
+                                                                             chunk_size= st.session_state.chunk_size,
+                                                                                collection_name = st.session_state.agent_profile['collection_name'],
+                                                                                folders = st.session_state.agent_profile['folders'],)
+        
+    st.session_state.conversational_rag_chain = init_conversational_rag_chain(vector_store = st.session_state.vector_store_from_client,
+                                                                                  llm = st.session_state.llm,
+                                        qa_prompt_generation_function = st.session_state.agent_profile['qa_prompt_generation_function'])
 
 
 
@@ -153,9 +163,8 @@ def initialize_chatbot():
         st.chat_message("assistant").write(chat_message)
         st.session_state.messages.append({"role": "assistant", "content": chat_message})
 
-        init_llm()
-        init_conversational_rag_chain(qa_prompt_generation_function = all_in_one_agent['qa_prompt_generation_function'],
-                                  vector_store = st.session_state.vector_store_from_client)
+        process_new_profile()
+        
         st.session_state.bot_initialized = True
 
 
