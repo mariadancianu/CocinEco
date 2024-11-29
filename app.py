@@ -93,6 +93,11 @@ def update_fields_with_profile(profile_data):
     st.session_state.height = profile_data["size"]
     st.session_state.weight = profile_data["weight"]
     st.session_state.country = profile_data["country"]
+    if "user_name" in profile_data.keys():
+        st.session_state.user_name = profile_data["user_name"]
+    else:
+        st.session_state.user_name = 'Unnamed User'
+
     process_new_profile()
 
 def initialize_frontend():
@@ -191,7 +196,8 @@ def main():
         with st.chat_message("user"):
             st.session_state.messages.append({"role": "user", "content": prompt})
             st.write(prompt)
-            logger.info('User : %s', prompt)
+            logger.info('User : %s', st.session_state.user_name )
+            logger.info(prompt)
 
         with st.spinner("Processing..."):
             answer,context = process_prompt(prompt)
