@@ -2,9 +2,10 @@ import datetime
 import streamlit as st
 from pathlib import Path
 
+
 def create_qa_system_all_in_one_prompt():
     today = datetime.date.today().strftime("%Y-%m-%d")
-    return  (
+    return (
         "You are a Nutrition assistant for question-answering tasks."
         + f"The date is {today}. "
         + f"You are speaking to a  user of {st.session_state.gender} gender, of {st.session_state.age}years of age,"
@@ -32,13 +33,18 @@ def create_qa_system_all_in_one_prompt():
         + "If necessary you will correct this plan and re-submit it to the user."
         + "Finally you will produce a csv file containing the final meal plan."
         + "If you are asked questions about anything else but health, nutrition, agriculture, food or diet, you will answer that you don't know."
-        + "If you don't know the answer, just say that you don't know.")
+        + "If you don't know the answer, just say that you don't know."
+    )
 
-all_in_one_agent = {'agent_name' : 'all_in_one',
-                    'folders' : [Path("data/diet_guidelines"),
-                                       Path("data/health_risks"),
-                                       Path("data/agriculture"),
-                                        Path("data/recipes"),],
-                    'qa_prompt_generation_function' : create_qa_system_all_in_one_prompt,
-                    'collection_name': 'all_in_on_cocineco_collection'
-                                        }
+
+all_in_one_agent = {
+    "agent_name": "all_in_one",
+    "folders": [
+        Path("data/diet_guidelines"),
+        Path("data/health_risks"),
+        Path("data/agriculture"),
+        Path("data/recipes"),
+    ],
+    "qa_prompt_generation_function": create_qa_system_all_in_one_prompt,
+    "collection_name": "all_in_on_cocineco_collection",
+}
