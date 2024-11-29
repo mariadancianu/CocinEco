@@ -1,5 +1,6 @@
 supported_countries = ['Spain',
                        'France',
+                       'Mexico',
                        'India',
                        'Lebanon',
                        'Italy',

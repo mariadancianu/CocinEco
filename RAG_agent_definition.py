@@ -24,6 +24,28 @@ from agents_profiles import all_in_one_agent
 
 from supported_countries import supported_countries
 
+
+
+def init_rag_agent_from_profile(temperature= 0.2,
+                                llm_model= "gpt-4o-mini",
+                                embedding_model = "text-embedding-ada-002",
+                                chunk_size = 1000,
+                                agent_profile = all_in_one_agent,
+                                ):
+
+    llm = init_llm(temperature = temperature,
+                                    llm_model = llm_model)
+    vector_store_from_client = init_chroma_vector_store(embedding_model=embedding_model,
+                                                                        chunk_size= chunk_size,
+                                                                                collection_name = agent_profile['collection_name'],
+                                                                                folders = agent_profile['folders'],)
+        
+    conversational_rag_chain = init_conversational_rag_chain(vector_store = vector_store_from_client,
+                                                                                  llm = llm,
+                                        qa_prompt_generation_function = agent_profile['qa_prompt_generation_function'])
+    
+    return conversational_rag_chain
+
 def init_llm(temperature = 0.2,
              llm_model = "gpt-4o-mini",  ):
     llm = ChatOpenAI(model=llm_model, temperature=temperature)

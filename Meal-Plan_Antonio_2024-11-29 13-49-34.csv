@@ -1,0 +1,44 @@
+csv
+Day,Meal,Food,Calories,Serving Size,Fats (g),Carbohydrates (g),Sugars (g),Proteins (g),Percent Daily Value (%),Calcium (mg),Iron (mg),Potassium (mg),Fiber (g)
+Monday,Breakfast,Quinoa Porridge with Apples and Almonds,350,1 cup,15,45,10,10,20,50,2.5,300,5
+Monday,Snack,Chestnuts,200,100 g,1.5,44,0,4,10,5,1.5,200,5
+Monday,Lunch,Spinach Salad with Chickpeas and Olive Oil,400,2 cups,20,40,5,15,25,80,4,500,10
+Monday,Snack,Kiwis,60,1 medium,0.5,15,9,1,5,30,0.5,200,3
+Monday,Dinner,Grilled Chicken with Roasted Sweet Potatoes and Broccoli,500,200 g,20,45,5,40,30,50,2,600,8
+Total Calories for Monday,,,"1510",,,,,"",,,,
+Tuesday,Breakfast,Smoothie with Spinach, Banana, and Almond Milk,300,1 cup,5,40,20,5,10,20,1,300,4
+Tuesday,Snack,Walnuts,200,30 g,18,4,1,5,5,20,0.5,150,2
+Tuesday,Lunch,Lentil Soup with Carrots and Onions,350,1 bowl,10,50,5,20,15,30,3,400,8
+Tuesday,Snack,Pears,100,1 medium,0.5,27,10,1,3,20,0.3,150,5
+Tuesday,Dinner,Stuffed Bell Peppers with Quinoa and Mushrooms,450,2 peppers,15,60,5,15,20,40,3,500,7
+Total Calories for Tuesday,,,"1400",,,,,"",,,,
+Wednesday,Breakfast,Oatmeal with Pomegranates and Almonds (gluten-free oats),350,1 cup,15,45,10,10,20,50,2.5,300,5
+Wednesday,Snack,Oranges,80,1 medium,0.2,20,12,1,3,40,0.5,250,4
+Wednesday,Lunch,Grilled Chicken Salad with Kale and Olive Oil,400,2 cups,20,30,5,30,25,60,3,500,8
+Wednesday,Snack,Grapes,70,1 cup,0.2,18,16,1,2,30,0.3,150,1
+Wednesday,Dinner,Baked Salmon with Garlic and Roasted Potatoes,500,200 g,25,40,5,40,30,50,2,600,7
+Total Calories for Wednesday,,,"1400",,,,,"",,,,
+Thursday,Breakfast,Smoothie Bowl with Kiwis and Almonds,300,1 bowl,10,40,20,5,10,20,1,300,4
+Thursday,Snack,Chestnuts,200,100 g,1.5,44,0,4,10,5,1.5,200,5
+Thursday,Lunch,Chickpea and Spinach Stew,400,1 bowl,10,60,5,20,15,30,3,400,8
+Thursday,Snack,Apples,95,1 medium,0.3,25,19,0,3,20,0.4,150,4
+Thursday,Dinner,Stuffed Sweet Potatoes with Black Beans and Corn,500,1 potato,15,80,5,20,25,40,4,600,9
+Total Calories for Thursday,,,"1495",,,,,"",,,,
+Friday,Breakfast,Quinoa Salad with Oranges and Walnuts,350,1 cup,15,45,10,10,20,50,2.5,300,5
+Friday,Snack,Kiwis,60,1 medium,0.5,15,9,1,5,30,0.5,200,3
+Friday,Lunch,Grilled Vegetable and Chickpea Wrap (gluten-free wrap),400,1 wrap,10,50,5,20,15,30,3,400,8
+Friday,Snack,Pears,100,1 medium,0.5,27,10,1,3,20,0.3,150,5
+Friday,Dinner,Roasted Chicken with Cauliflower and Garlic,500,200 g,25,40,5,40,30,50,2,600,7
+Total Calories for Friday,,,"1510",,,,,"",,,,
+Saturday,Breakfast,Oatmeal with Chestnuts and Apples (gluten-free oats),350,1 cup,15,45,10,10,20,50,2.5,300,5
+Saturday,Snack,Oranges,80,1 medium,0.2,20,12,1,3,40,0.5,250,4
+Saturday,Lunch,Lentil Salad with Spinach and Olive Oil,400,1 bowl,10,50,5,20,15,30,3,400,8
+Saturday,Snack,Grapes,70,1 cup,0.2,18,16,1,2,30,0.3,150,1
+Saturday,Dinner,Grilled Salmon with Sweet Potatoes and Broccoli,500,200 g,25,40,5,40,30,50,2,600,7
+Total Calories for Saturday,,,"1400",,,,,"",,,,
+Sunday,Breakfast,Smoothie with Spinach, Banana, and Almond Milk,300,1 cup,5,40,20,5,10,20,1,300,4
+Sunday,Snack,Walnuts,200,30 g,18,4,1,5,5,20,0.5,150,2
+Sunday,Lunch,Chickpea and Kale Stew,400,1 bowl,10,60,5,20,15,30,3,400,8
+Sunday,Snack,Pears,100,1 medium,0.5,27,10,1,3,20,0.3,150,5
+Sunday,Dinner,Stuffed Bell Peppers with Quinoa and Mushrooms,450,2 peppers,15,60,5,15,20,40,3,500,7
+Total Calories for Sunday,,,"1450",,,,,"",,,,

@@ -1,3 +1,21 @@
+from RAG_agent_definition import init_llm
+
+def build_predefined_user_system_prompt(user_profile):
+
+    return f"""You are a {user_profile['gender']}, 
+            living in {user_profile['country']},
+            of  {user_profile['age']} years old, 
+              {user_profile['size']} cm tall,
+                {user_profile['weight']} kg heavy.
+                to describe you, we can also say that {user_profile['user_information']}.
+                You are not allowed to give answers of more than 5 words. 
+                You can only answer questions about yourself"""
+
+
+def init_user_agent_from_profile(user_profile):
+
+    return init_llm(temperature=0) , build_predefined_user_system_prompt(user_profile)
+
 predefined_profiles = {
     "Antonio": {"user_name": 'Antonio', 
                "gender": "male", 
@@ -5,7 +23,12 @@ predefined_profiles = {
                "size": 180, 
                "weight": 90, 
                "country": "Spain",
-               "user_information": ' has a sedentary job and is interested in improving his diet.'},
+               "user_information": """have a sedentary job, 
+                                    has allergy to gluten,
+                                    is partying a lot,
+                                    does a lot of sport,
+                                    doesn't like to cook,
+                                    wants to lose a bit of weight."""},
     "Paula": {"user_name": 'Paula',
                  "gender": "female", 
                  "age": 55, 

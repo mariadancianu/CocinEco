@@ -1,0 +1,50 @@
+
+Day,Meal,Food,Calories,Serving Size,Fats (g),Carbohydrates (g),Sugars (g),Proteins (g),Percent Daily Value (%),Calcium (mg),Iron (mg),Potassium (mg),Fiber (g)
+Monday,Breakfast,Oatmeal with banana and almonds,300,1 cup,10,54,12,8,15,50,1.5,300,5
+Monday,Snack,Carrot sticks with hummus,150,1 cup,5,20,5,4,10,50,0.5,200,3
+Monday,Lunch,Grilled chicken salad with spinach and tomatoes,400,1 plate,15,30,6,35,20,100,2.5,600,7
+Monday,Snack,Apple slices with peanut butter,200,1 medium apple,8,30,10,4,5,20,0.5,250,4
+Monday,Dinner,Quinoa with roasted vegetables (zucchini, bell peppers),450,1 cup,10,75,5,15,10,30,3,500,6
+Total Calories for Monday, , ,1500, , , , , , , , , , 
+
+Tuesday,Breakfast,Scrambled eggs with spinach and tomatoes,250,2 eggs,15,5,2,20,10,50,1.5,300,2
+Tuesday,Snack,Papaya slices,100,1 cup,0,25,10,1,2,20,0.5,150,3
+Tuesday,Lunch,Turkey wrap with lettuce and avocado,350,1 wrap,10,40,5,30,15,50,2,400,5
+Tuesday,Snack,Cucumber slices with lime,50,1 cup,0,12,2,1,2,10,0.2,100,1
+Tuesday,Dinner,Grilled fish with sweet potato and broccoli,450,1 plate,15,50,8,30,15,40,2.5,600,7
+Total Calories for Tuesday, , ,1200, , , , , , , , , , 
+
+Wednesday,Breakfast,Smoothie with banana, spinach, and yogurt,300,1 cup,5,50,15,10,10,30,0.5,300,4
+Wednesday,Snack,Orange slices,80,1 orange,0,20,10,1,2,30,0.5,200,3
+Wednesday,Lunch,Lentil soup with carrots and cilantro,350,1 bowl,5,60,5,20,10,50,3,400,8
+Wednesday,Snack,Chayote sticks with salsa,100,1 cup,0,20,5,2,5,10,0.5,150,2
+Wednesday,Dinner,Stuffed bell peppers with quinoa and black beans,450,1 pepper,10,70,5,15,10,30,2,500,6
+Total Calories for Wednesday, , ,1380, , , , , , , , , , 
+
+Thursday,Breakfast,Yogurt with granola and fruit,300,1 cup,5,50,15,10,10,30,0.5,300,4
+Thursday,Snack,Almonds,150,1 oz,12,5,1,6,5,20,1,200,3
+Thursday,Lunch,Chicken tacos with cabbage and salsa,400,2 tacos,15,50,5,30,15,50,2,400,5
+Thursday,Snack,Banana,100,1 medium,0,27,14,1,2,10,0.5,400,3
+Thursday,Dinner,Stir-fried shrimp with mixed vegetables,450,1 plate,10,60,5,30,10,30,2.5,500,6
+Total Calories for Thursday, , ,1400, , , , , , , , , , 
+
+Friday,Breakfast,Oatmeal with apple and cinnamon,300,1 cup,5,54,12,8,15,50,1.5,300,5
+Friday,Snack,Cucumber and tomato salad,100,1 cup,0,20,5,2,5,10,0.5,150,2
+Friday,Lunch,Quinoa salad with black beans and corn,400,1 plate,10,60,5,20,10,30,3,400,6
+Friday,Snack,Papaya smoothie,150,1 cup,0,30,10,1,2,20,0.5,200,3
+Friday,Dinner,Grilled chicken with roasted sweet potatoes,450,1 plate,15,50,8,30,15,40,2.5,600,7
+Total Calories for Friday, , ,1400, , , , , , , , , , 
+
+Saturday,Breakfast,Scrambled eggs with bell peppers,250,2 eggs,15,5,2,20,10,50,1.5,300,2
+Saturday,Snack,Carrot sticks with guacamole,150,1 cup,10,20,5,4,10,50,0.5,200,3
+Saturday,Lunch,Turkey and avocado salad,400,1 plate,15,30,6,35,20,100,2.5,600,7
+Saturday,Snack,Apple slices,100,1 medium,0,25,10,1,2,20,0.5,250,4
+Saturday,Dinner,Vegetable stir-fry with tofu,450,1 plate,10,60,5,20,10,30,3,500,6
+Total Calories for Saturday, , ,1450, , , , , , , , , , 
+
+Sunday,Breakfast,Yogurt with fruit and nuts,300,1 cup,10,50,15,10,10,30,0.5,300,4
+Sunday,Snack,Papaya slices,100,1 cup,0,25,10,1,2,20,0.5,150,3
+Sunday,Lunch,Grilled fish tacos with cabbage,400,2 tacos,15,50,5,30,15,50,2,400,5
+Sunday,Snack,Cucumber slices with salsa,50,1 cup,0,12,2,1,2,10,0.2,100,1
+Sunday,Dinner,Lentil stew with vegetables,450,1 bowl,5,60,5,20,10,50,3,400,6
+Total Calories for Sunday, , ,1350, , , , , , , , , , 
