@@ -57,8 +57,12 @@ def process_prompt(prompt):
 
 def send_meal_plan(answer):
     # Generate a filename with the current timestamp
-    
-    file_name = f"Meal-Plan_{datetime.datetime.now().strftime('%Y-%m-%d %H-%M-%S')}.csv"
+
+    if st.session_state.user_name != 'Unnamed User':
+        file_name = f"Meal-Plan_{st.session_state.user_name}_{datetime.datetime.now().strftime('%Y-%m-%d %H-%M-%S')}.csv"
+    else:
+        file_name = f"Meal-Plan_{datetime.datetime.now().strftime('%Y-%m-%d %H-%M-%S')}.csv"
+
 
     # Extract the CSV content from the answer
     csv_content = answer.split("```")[1]
