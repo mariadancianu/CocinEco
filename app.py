@@ -9,7 +9,20 @@ from RAG_agent_definition import init_llm
 from RAG_agent_definition import init_conversational_rag_chain
 from RAG_agent_definition import init_chroma_vector_store
 from agents_profiles import all_in_one_agent
-# Initialize LLM and embeddings
+
+import logging
+import logging.config
+
+logger = logging.getLogger('app')
+
+logging.basicConfig(filename='LogFile.log',
+                    filemode='a',
+                    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+                    datefmt='%H:%M:%S',
+                    level=logging.INFO)
+
+
+
 
 def process_new_profile():
 
@@ -36,9 +49,10 @@ def process_prompt(prompt):
         config={"configurable": {"session_id": "abc123"}},
     )
     answer = output["answer"]
+    context = output["context"]
 
     st.session_state.chat_history.append((prompt, answer))
-    return answer
+    return answer,context
 
 
 def send_meal_plan(answer):
@@ -177,14 +191,20 @@ def main():
         with st.chat_message("user"):
             st.session_state.messages.append({"role": "user", "content": prompt})
             st.write(prompt)
+            logger.info('User : %s', prompt)
 
         with st.spinner("Processing..."):
-            answer = process_prompt(prompt)
+            answer,context = process_prompt(prompt)
         if "```" in answer:
             send_meal_plan(answer)
+            logger.info('Assistant : %s', answer)
+            logger.info('Context : %s', context)
         else:
             st.session_state.messages.append({"role": "assistant", "content": answer})
             st.chat_message("assistant").write(answer)
+            logger.info('Assistant : %s', answer)
+            logger.info('Context : %s', context)
+
 
 
 if __name__ == "__main__":
