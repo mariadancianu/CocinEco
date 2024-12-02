@@ -1,0 +1,44 @@
+csv
+Day,Meal,Food Item,Serving Size,Calories,Fats (g),Carbohydrates (g),Sugars (g),Proteins (g),Calcium (%DV),Iron (%DV),Potassium (%DV),Fiber (g)
+Monday,Breakfast,Oatmeal with Apples,1 cup,150,3,27,5,5,2,4,5,4
+Monday,Snack,Walnuts,30 g,200,20,4,2,1,5,2,5,2
+Monday,Lunch,Grilled Chicken Salad with Spinach,150 g,350,10,15,3,40,4,10,15,5
+Monday,Snack,Carrot Sticks,100 g,41,0,10,5,1,1,2,5,3
+Monday,Dinner,Roasted Brussels Sprouts and Potatoes,200 g,250,10,35,5,5,4,8,10,6
+Total Calories for Monday,,,"",991,,,,,,,,,
+Tuesday,Breakfast,Smoothie with Pear and Spinach,1 cup,180,2,38,10,3,2,4,6,5
+Tuesday,Snack,Grapes,150 g,104,0,27,16,1,1,2,5,1
+Tuesday,Lunch,Vegetable Soup with Leeks and Carrots,1 bowl,150,5,30,5,5,2,6,8,4
+Tuesday,Snack,Chestnuts,30 g,170,1,36,0,4,1,2,5,3
+Tuesday,Dinner,Stuffed Cabbage with Ground Turkey,200 g,400,15,40,5,30,4,10,15,7
+Total Calories for Tuesday,,,"",1004,,,,,,,,,
+Wednesday,Breakfast,Yogurt with Pomegranates,1 cup,150,5,20,10,8,2,4,5,2
+Wednesday,Snack,Mushrooms,100 g,22,0,3,0,3,1,2,3,1
+Wednesday,Lunch,Quinoa Salad with Kale and Fennel,1 bowl,300,10,50,5,10,4,8,10,6
+Wednesday,Snack,Radishes,100 g,16,0,4,2,0,1,2,3,1
+Wednesday,Dinner,Grilled Fish with Garlic and Beets,200 g,350,15,20,5,30,2,10,15,5
+Total Calories for Wednesday,,,"",838,,,,,,,,,
+Thursday,Breakfast,Toast with Avocado and Tomatoes,2 slices,250,15,30,5,5,2,4,5,8
+Thursday,Snack,Hazelnuts,30 g,200,18,5,1,5,2,4,5,3
+Thursday,Lunch,Spinach and Feta Stuffed Peppers,2 peppers,300,10,40,5,15,4,8,10,7
+Thursday,Snack,Turnip Sticks,100 g,28,0,6,3,1,1,2,4,2
+Thursday,Dinner,Roasted Chicken with Cauliflower,200 g,400,20,30,5,40,4,10,15,6
+Total Calories for Thursday,,,"",1178,,,,,,,,,
+Friday,Breakfast,Smoothie with Banana and Spinach,1 cup,200,1,50,10,3,2,4,6,5
+Friday,Snack,Apple Slices with Peanut Butter,1 apple,150,8,20,10,4,2,4,5,3
+Friday,Lunch,Vegetable Stir Fry with Tofu,1 bowl,350,15,30,5,20,4,10,15,5
+Friday,Snack,Cabbage Salad,1 cup,50,1,10,2,2,1,2,3,2
+Friday,Dinner,Grilled Lamb with Garlic and Mushrooms,200 g,500,25,20,5,40,4,10,15,6
+Total Calories for Friday,,,"",1250,,,,,,,,,
+Saturday,Breakfast,Oatmeal with Pears,1 cup,150,3,27,5,5,2,4,5,4
+Saturday,Snack,Walnuts,30 g,200,20,4,2,1,5,2,5,2
+Saturday,Lunch,Chickpea Salad with Spinach,1 bowl,300,10,40,5,15,4,8,10,7
+Saturday,Snack,Carrot Sticks,100 g,41,0,10,5,1,1,2,5,3
+Saturday,Dinner,Roasted Chicken with Brussels Sprouts,200 g,400,15,30,5,40,4,10,15,6
+Total Calories for Saturday,,,"",1091,,,,,,,,,
+Sunday,Breakfast,Yogurt with Apples,1 cup,150,5,20,10,8,2,4,5,2
+Sunday,Snack,Grapes,150 g,104,0,27,16,1,1,2,5,1
+Sunday,Lunch,Vegetable Soup with Cabbage and Carrots,1 bowl,150,5,30,5,5,2,6,8,4
+Sunday,Snack,Chestnuts,30 g,170,1,36,0,4,1,2,5,3
+Sunday,Dinner,Stuffed Peppers with Quinoa,2 peppers,400,15,50,5,20,4,10,15,7
+Total Calories for Sunday,,,"",1074,,,,,,,,,
