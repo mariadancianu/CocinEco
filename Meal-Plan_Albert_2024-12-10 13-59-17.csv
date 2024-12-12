@@ -1,0 +1,50 @@
+
+Day,Meal,Food,Calories,Serving Size,Fats (g),Carbohydrates (g),Sugars (g),Proteins (g),Percent Daily Value (%),Calcium (mg),Iron (mg),Potassium (mg),Fiber (g)
+Monday,Breakfast,Oatmeal with Apples,300,1 cup,5,54,12,10,15,40,1.5,200,5
+Monday,Snack,Carrot Sticks,50,1 cup,0.2,12,6,1,2,40,0.5,180,3
+Monday,Lunch,Leek and Potato Soup,350,1 bowl,10,50,5,8,20,60,2,300,4
+Monday,Snack,Pear,100,1 medium,0.3,27,10,1,2,20,0.2,150,5
+Monday,Dinner,Roasted Brussels Sprouts and Chicken,500,1 plate,20,30,5,40,25,80,3,400,6
+Total Calories for Monday, , , , , , , , , , , , , 1300
+
+Tuesday,Breakfast,Smoothie with Spinach and Banana,250,1 glass,2,50,15,5,10,30,0.8,250,4
+Tuesday,Snack,Chestnuts,200,1/2 cup,5,40,5,4,10,20,1.5,150,5
+Tuesday,Lunch,Cabbage Salad with Apples,300,1 bowl,10,40,10,5,15,50,1.2,200,4
+Tuesday,Snack,Radishes,20,1 cup,0.1,4,2,0.5,1,10,0.1,50,1
+Tuesday,Dinner,Stuffed Squash with Quinoa,450,1 plate,15,60,8,15,20,70,2.5,350,7
+Total Calories for Tuesday, , , , , , , , , , , , , 1220
+
+Wednesday,Breakfast,Yogurt with Pomegranate,200,1 cup,5,30,15,10,15,40,0.5,200,3
+Wednesday,Snack,Beet Chips,150,1 oz,8,20,5,2,5,10,0.8,150,2
+Wednesday,Lunch,Spinach and Fennel Salad,300,1 bowl,10,40,5,8,15,30,1.5,250,4
+Wednesday,Snack,Orange,80,1 medium,0.2,20,12,1,2,50,0.1,180,3
+Wednesday,Dinner,Cauliflower and Chickpea Curry,500,1 plate,15,70,10,20,25,60,3,400,8
+Total Calories for Wednesday, , , , , , , , , , , , , 1230
+
+Thursday,Breakfast,Whole Grain Toast with Avocado,300,2 slices,15,30,5,8,15,40,1.2,200,6
+Thursday,Snack,Apple Slices with Peanut Butter,200,1 medium apple + 2 tbsp,10,30,10,5,10,20,0.5,150,4
+Thursday,Lunch,Turnip and Potato Mash,350,1 bowl,10,60,5,8,15,50,2,300,5
+Thursday,Snack,Kale Chips,100,1 oz,5,15,0,3,5,10,0.5,100,2
+Thursday,Dinner,Grilled Chicken with Roasted Vegetables,500,1 plate,20,40,5,40,25,80,3,400,6
+Total Calories for Thursday, , , , , , , , , , , , , 1450
+
+Friday,Breakfast,Smoothie with Banana and Spinach,250,1 glass,2,50,15,5,10,30,0.8,250,4
+Friday,Snack,Carrot Sticks with Hummus,150,1 cup + 2 tbsp,5,20,5,5,10,20,0.5,150,3
+Friday,Lunch,Cabbage and Apple Slaw,300,1 bowl,10,40,10,5,15,50,1.2,200,4
+Friday,Snack,Pear,100,1 medium,0.3,27,10,1,2,20,0.2,150,5
+Friday,Dinner,Stuffed Peppers with Quinoa,500,1 plate,15,60,8,15,20,70,2.5,350,7
+Total Calories for Friday, , , , , , , , , , , , , 1300
+
+Saturday,Breakfast,Oatmeal with Pear,300,1 cup,5,54,12,10,15,40,1.5,200,5
+Saturday,Snack,Radishes,20,1 cup,0.1,4,2,0.5,1,10,0.1,50,1
+Saturday,Lunch,Leek Soup with Garlic Bread,350,1 bowl + 1 slice,10,50,5,8,20,60,2,300,4
+Saturday,Snack,Orange,80,1 medium,0.2,20,12,1,2,50,0.1,180,3
+Saturday,Dinner,Roasted Cauliflower with Chickpeas,500,1 plate,15,70,10,20,25,60,3,400,8
+Total Calories for Saturday, , , , , , , , , , , , , 1250
+
+Sunday,Breakfast,Yogurt with Chestnuts,200,1 cup,5,30,15,10,15,40,0.5,200,3
+Sunday,Snack,Beet Chips,150,1 oz,8,20,5,2,5,10,0.8,150,2
+Sunday,Lunch,Spinach and Fennel Salad,300,1 bowl,10,40,5,8,15,30,1.5,250,4
+Sunday,Snack,Apple,100,1 medium,0.3,27,10,1,2,20,0.2,150,5
+Sunday,Dinner,Stuffed Squash with Quinoa,450,1 plate,15,60,8,15,20,70,2.5,350,7
+Total Calories for Sunday, , , , , , , , , , , , , 1300
