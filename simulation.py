@@ -67,3 +67,9 @@ def chat_simulation(user_name):
             save_meal_plan_to_csv(chat_message, file_name)
             print("!!! The chat is over !!!")
             break
+
+def main():
+    chat_simulation_for_all_profiles()
+
+if __name__ == "__main__":
+    main()
