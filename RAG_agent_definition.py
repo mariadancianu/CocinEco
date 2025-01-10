@@ -1,25 +1,30 @@
 import os
 from pathlib import Path
+from typing import Callable
 from typing import List
-import pandas as pd
+
 import bs4
 import chromadb
-from langchain.chains import create_history_aware_retriever, create_retrieval_chain
+import pandas as pd
+from langchain.chains import create_history_aware_retriever
+from langchain.chains import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.docstore.document import Document as LangchainDocument
-from langchain.document_loaders import PyPDFLoader
-from langchain_core.chat_history import BaseChatMessageHistory
-from langchain_community.chat_message_histories import ChatMessageHistory
-from langchain_community.document_loaders import DataFrameLoader, WebBaseLoader
-from langchain_core.documents import Document
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain_core.runnables.history import RunnableWithMessageHistory
-from langchain_openai import ChatOpenAI, OpenAIEmbeddings
-from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
+from langchain_community.chat_message_histories import ChatMessageHistory
+from langchain_community.document_loaders import DataFrameLoader
+from langchain_community.document_loaders import PyPDFLoader
+from langchain_community.document_loaders import WebBaseLoader
+from langchain_core.chat_history import BaseChatMessageHistory
+from langchain_core.documents import Document
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.prompts import MessagesPlaceholder
+from langchain_core.runnables.history import RunnableWithMessageHistory
+from langchain_openai import ChatOpenAI
+from langchain_openai import OpenAIEmbeddings
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+
 from agents_profiles import all_in_one_agent
-
-
 from supported_countries import supported_countries
 
 
@@ -29,7 +34,7 @@ def init_rag_agent_from_profile(
     embedding_model="text-embedding-ada-002",
     chunk_size=1000,
     agent_profile=all_in_one_agent,
-):
+) -> RunnableWithMessageHistory:
     llm = init_llm(temperature=temperature, llm_model=llm_model)
     vector_store_from_client = init_chroma_vector_store(
         embedding_model=embedding_model,
@@ -48,18 +53,18 @@ def init_rag_agent_from_profile(
 
 
 def init_llm(
-    temperature=0.2,
-    llm_model="gpt-4o-mini",
-):
+    temperature: float = 0.2,
+    llm_model: str = "gpt-4o-mini",
+) -> ChatOpenAI:
     llm = ChatOpenAI(model=llm_model, temperature=temperature)
     return llm
 
 
 def init_conversational_rag_chain(
-    vector_store,
-    llm,
-    qa_prompt_generation_function=all_in_one_agent["qa_prompt_generation_function"],
-):
+    vector_store: Chroma,
+    llm: ChatOpenAI,
+    qa_prompt_generation_function: Callable = all_in_one_agent["qa_prompt_generation_function"],
+) -> RunnableWithMessageHistory:
     # Initialize Chroma Vector Store
 
     retriever = vector_store.as_retriever()
@@ -116,7 +121,7 @@ def init_chroma_vector_store(
     chunk_size,
     collection_name=all_in_one_agent["collection_name"],
     folders=all_in_one_agent["folders"],
-):
+) -> Chroma:
     embeddings = OpenAIEmbeddings(chunk_size=chunk_size, model=embedding_model)
 
     persistent_client = chromadb.PersistentClient(path="./data/chroma_db/chroma_langchain_db")

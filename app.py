@@ -1,17 +1,23 @@
-import streamlit as st
 import datetime
-
 import io
-from user_profiles import predefined_profiles
-
-from supported_countries import supported_countries
-from RAG_agent_definition import init_rag_agent_from_profile
-from agents_profiles import all_in_one_agent
-
 import logging
 import logging.config
+import os
+
+import streamlit as st
+from dotenv import load_dotenv
+from langchain_core.runnables.history import RunnableWithMessageHistory
+
+from agents_profiles import all_in_one_agent
+from RAG_agent_definition import init_rag_agent_from_profile
+from supported_countries import supported_countries
+from user_profiles import predefined_profiles
 
 logger = logging.getLogger("app")
+load_dotenv()
+
+debug_mode = os.getenv("DEBUG", False)
+logger.debug(f"debug mode: {debug_mode}")
 
 logging.basicConfig(
     filename="LogFile.log",
@@ -41,7 +47,7 @@ def reset_rag_agent(
 
 
 # Process User Prompt
-def process_prompt(prompt, conversational_rag_chain, chat_history):
+def process_prompt(prompt, conversational_rag_chain: RunnableWithMessageHistory, chat_history):
     output = conversational_rag_chain.invoke(
         {"input": prompt},
         config={"configurable": {"session_id": "abc123"}},
@@ -130,9 +136,28 @@ def initialize_frontend():
         index=None,
         key="profile_choice",
     )
-    st.sidebar.selectbox("Gender", ["male", "female"], on_change=reset_rag_agent, key="gender")
+    reset_rag_agent_args = (
+        st.session_state.temperature,
+        "gpt-4o-mini",
+        st.session_state.embedding_model_name,
+        st.session_state.chunk_size,
+        st.session_state.agent_profile,
+    )
+    st.sidebar.selectbox(
+        "Gender",
+        ["male", "female"],
+        key="gender",
+        on_change=reset_rag_agent,
+        args=reset_rag_agent_args,
+    )
     st.sidebar.number_input(
-        "Select Your Age", min_value=10, max_value=100, step=1, on_change=reset_rag_agent, key="age"
+        "Select Your Age",
+        min_value=10,
+        max_value=100,
+        step=1,
+        on_change=reset_rag_agent,
+        args=reset_rag_agent_args,
+        key="age",
     )
     st.sidebar.number_input(
         "Select Your Height (cm)",
@@ -140,6 +165,7 @@ def initialize_frontend():
         max_value=210,
         step=1,
         on_change=reset_rag_agent,
+        args=reset_rag_agent_args,
         key="height",
     )
 
@@ -149,30 +175,27 @@ def initialize_frontend():
         max_value=300,  # Maximum weight
         step=1,
         on_change=reset_rag_agent,
+        args=reset_rag_agent_args,
         key="weight",
     )
-
     st.sidebar.selectbox(
-        "Select Your Country", supported_countries, on_change=reset_rag_agent, key="country"
+        "Select Your Country",
+        supported_countries,
+        on_change=reset_rag_agent,
+        args=reset_rag_agent_args,
+        key="country",
     )
 
     st.title("CocinEco by A3I-Data Science")
     st.sidebar.empty()
 
 
-def initialize_chatbot():
-    # Initialize chat history
-    if "messages" not in st.session_state:
-        st.session_state.messages = []
-
-    for msg in st.session_state.messages:
-        st.chat_message(msg["role"]).write(msg["content"])
-
+def initialize_session():
     if "bot_initialized" not in st.session_state:
         st.session_state.bot_initialized = False
 
     if not st.session_state.bot_initialized:
-        # Global Variables stored in st.session_state
+        st.session_state.user_name = "Unnamed User"
         st.session_state.llm = None
         st.session_state.embeddings = None
         st.session_state.chunk_size = 1000
@@ -183,6 +206,17 @@ def initialize_chatbot():
         st.session_state.chat_history = []
         st.session_state.agent_profile = all_in_one_agent
 
+
+def initialize_chatbot():
+    # Initialize chat history
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
+
+    for msg in st.session_state.messages:
+        st.chat_message(msg["role"]).write(msg["content"])
+
+    if not st.session_state.bot_initialized:
+        # Global Variables stored in st.session_state
         chat_message = (
             "Hello there! I'm CocinEco: an AI assistant that will help you elaborate sustainable meal plans."
             + "I will ask you a few questions to understand you better and provide"
@@ -205,6 +239,7 @@ def initialize_chatbot():
 
 
 def main():
+    initialize_session()
     initialize_frontend()
     initialize_chatbot()
     number_of_messages = 0
@@ -213,7 +248,7 @@ def main():
     if prompt := st.chat_input():
         number_of_messages = max(number_of_messages, len(st.session_state.messages))
 
-        if 20 > number_of_messages:
+        if number_of_messages < 20:
             with st.chat_message("user"):
                 st.session_state.messages.append({"role": "user", "content": prompt})
                 st.write(prompt)
@@ -240,6 +275,14 @@ def main():
             else:
                 st.session_state.messages.append({"role": "assistant", "content": answer})
                 st.chat_message("assistant").write(answer)
+                if debug_mode:
+                    context_str = "Context:\n"
+                    for i, document in enumerate(context):
+                        context_str += f"Document {i}:\nMetadata:\n{str(document.metadata)}\n"
+                        context_str += f"Content:\n{str(document.page_content)}\n\n"
+
+                    st.chat_message("assistant").write(context_str)
+                    st.session_state.messages.append({"role": "assistant", "content": context_str})
                 logger.info("Assistant : %s", answer)
                 logger.info("Context : %s", context)
         else:

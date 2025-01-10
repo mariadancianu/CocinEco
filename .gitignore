@@ -1,3 +1,5 @@
+chroma_langchain_db
+*.egg-info
 uv.lock
 .env
 __pycache__
