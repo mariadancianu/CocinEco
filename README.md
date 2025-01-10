@@ -65,9 +65,9 @@ uv pip install -r requirements.txt
 pre-commit install
 ```
 
-3. Create an Open AI Key the key [here](https://platform.openai.com/api-keys), and run in terminal
+3. Create an Open AI Key the key [here](https://platform.openai.com/api-keys), and add it to a `.env` file (use `.env.template` as a template)
 ```
-export OPENAI_API_KEY="your_api_key_here"
+cp .env.template .env
 ```
 **Warning** there multiple types of key that you can create on open AI platform
 
