@@ -104,8 +104,8 @@ def send_meal_plan(answer):
 def reset_chat_history():
     st.session_state.chat_history = []
 
+def reset_profile(profile_data):
 
-def update_fields_with_profile(profile_data):
     st.session_state.gender = profile_data["gender"]
     st.session_state.age = profile_data["age"]
     st.session_state.height = profile_data["size"]
@@ -117,6 +117,11 @@ def update_fields_with_profile(profile_data):
     else:
         st.session_state.user_name = "Unnamed User"
 
+
+def update_fields_with_profile(profile_data):
+
+    reset_profile(profile_data)
+    
     reset_rag_agent(
         temperature=st.session_state.temperature,
         llm_model="gpt-4o-mini",
@@ -189,8 +194,8 @@ def initialize_frontend():
     st.title("CocinEco by A3I-Data Science")
     st.sidebar.empty()
 
-
 def initialize_session():
+
     if "bot_initialized" not in st.session_state:
         st.session_state.bot_initialized = False
 
