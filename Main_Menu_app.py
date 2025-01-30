@@ -27,14 +27,14 @@ def is_running_on_streamlit_cloud():
 
 def init_cocineco():
     if is_running_on_streamlit_cloud():
-        st.session_state.use_athentication = True
+        st.session_state.use_authentication = True
         st.session_state.running_in_cloud = True
     else:
-        st.session_state.use_athentication = False
+        st.session_state.use_authentication = False
         st.session_state.running_in_cloud = False
 
-    if "authenfied_user" not in st.session_state:
-        st.session_state.authenfied_user = False
+    if "authenticated_user" not in st.session_state:
+        st.session_state.authenticated_user = False
 
 
 def authenticate_user():
@@ -44,12 +44,12 @@ def authenticate_user():
     # Prompt the user for username and password
     username = st.text_input("Username")
     password = st.text_input("Password", type="password")
-    st.session_state.authenfied_user = (
+    st.session_state.authenticated_user = (
         username == correct_username
     )  # and password == correct_password)
     st.markdown("Please enter your Username and Password")
     if st.button("Login"):
-        if st.session_state.authenfied_user:
+        if st.session_state.authenticated_user:
             st.success("Login successful!")
         else:
             st.error(
@@ -59,11 +59,11 @@ def authenticate_user():
 
 def main():
     init_cocineco()
-    if not st.session_state.authenfied_user and st.session_state.use_athentication:
+    if not st.session_state.authenticated_user and st.session_state.use_authentication:
 
         authenticate_user()
     else:
-        st.session_state.authenfied_user = True
+        st.session_state.authenticated_user = True
         st.sidebar.success("Select a Planner Above.")
 
         st.success("Login successful!")

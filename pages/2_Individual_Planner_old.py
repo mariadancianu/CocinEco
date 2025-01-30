@@ -7,7 +7,7 @@ import os
 import streamlit as st
 from dotenv import load_dotenv
 from langchain_core.runnables.history import RunnableWithMessageHistory
-from streamlit_chat import message
+
 
 from agents_profiles import all_in_one_agent
 from agents_profiles import all_in_one_agent_Chat_GPT
@@ -15,6 +15,7 @@ from Main_Menu_app import init_cocineco
 from RAG_agent_definition import init_rag_agent_from_profile
 from supported_countries import supported_countries
 from user_profiles import predefined_profiles
+from user_profiles import build_predefined_user_system_prompt
 
 load_dotenv()  # Load environment variables
 
@@ -119,6 +120,7 @@ def update_fields_with_profile(profile_data):
     st.session_state.other_allergies_str = profile_data["other_allergies_str"]
     st.session_state.food_intolerance_list = profile_data["food_intolerance_list"]
     st.session_state.other_food_intolerance_str = profile_data["other_food_intolerance_str"]
+    st.session_state.reason_to_chat_with_cocineco = profile_data["reason_to_chat_with_cocineco"]
 
     if "user_name" in profile_data.keys():
         st.session_state.user_name = profile_data["user_name"]
@@ -130,105 +132,135 @@ def sidbar_inputs():
 
     st.sidebar.header("User Inputs")
 
-    st.sidebar.selectbox(
-        "Select Profile",
-        list(predefined_profiles.keys()),
-        on_change=lambda: update_fields_with_profile(
-            predefined_profiles[st.session_state.profile_choice]
-        ),
-        key="profile_choice",
-    )
+    user_name =st.sidebar.selectbox("User Name", ['Other'] + list(predefined_profiles.keys()),index=0)
 
-    st.sidebar.segmented_control(
-        "Gender",
-        ["male", "female"],
-        key="gender",
-    )
-    st.sidebar.slider(
-        "Select Your Age",
+    if user_name == 'Other':
+        st.session_state.user_name = st.sidebar.text_input("Enter Your Name")
+        st.session_state.gender = None
+
+        
+        st.sidebar.segmented_control(
+                "Gender",
+                ["male", "female"],
+                key="gender",
+            )
+        st.sidebar.number_input("Age",
         min_value=10,
         max_value=100,
         step=1,
-        value=40,
+        value=None,
         key="age",
-    )
-    st.sidebar.number_input(
-        "Select Your Height (cm)",
+        )
+        st.sidebar.number_input(
+        "Height (cm)",
         min_value=120,
         max_value=250,
         step=1,
-        value=170,
-        key="height",
-    )
-
-    st.sidebar.number_input(
-        "Enter Your Weight (kg)",
+        value=None,
+        key="height",)
+        st.sidebar.number_input(
+        "Weight (kg)",
         min_value=20,  # Minimum weight
         max_value=300,  # Maximum weight
         step=1,
-        value=70,
+        value=None,
         key="weight",
     )
-    st.sidebar.segmented_control(
-        "Select Your Country",
-        supported_countries,
-        key="country",
-    )
-    common_nutrition_health_conditions = [
-        "Type 2 Diabetes",
-        "Cardiovascular Disease",
-        "Hypertension",
-        "Osteoporosis",
-        "Iron Deficiency Anemia",
-    ]
 
-    st.sidebar.segmented_control(
-        "Health condition",
-        common_nutrition_health_conditions,
-        key="health_condition_list",
-        selection_mode="multi",
-    )
-    st.sidebar.text_input(
-        "Other Health Condition",
-        key="other_health_condition_str",
-        value="",
-    )
 
-    common_food_allergies = ["Peanuts", "Tree Nuts", "Milk", "Eggs", "Shellfish ", "Wheat"]
+        st.sidebar.segmented_control(
+            "Select Your Country",
+            supported_countries,
+            key="country",
+        )
+        common_nutrition_health_conditions = [
+            "Type 2 Diabetes",
+            "Cardiovascular Disease",
+            "Hypertension",
+            "Osteoporosis",
+            "Iron Deficiency Anemia",
+            "Other"
+        ]
 
-    st.sidebar.segmented_control(
-        "Allergies",
-        common_food_allergies,
-        key="allergies_list",
-        selection_mode="multi",
-    )
-    st.sidebar.text_input(
-        "Other Allergies",
-        key="other_allergies_str",
-        value="",
-    )
+        
+        health_conditions = st.sidebar.segmented_control(
+            "Health condition",
+            common_nutrition_health_conditions,
 
-    common_food_intolerances = [
-        "Lactose Intolerance",
-        "Gluten Sensitivity (Non-Celiac)",
-        "Fructose Malabsorption",
-        "Histamine Intolerance",
-        "FODMAP Intolerance",
-        "Caffeine Sensitivity",
-    ]
+            selection_mode="multi",
+        )
+        if 'Other' in health_conditions:
+            st.session_state.health_condition_list = health_conditions.remove('Other')
+            st.sidebar.text_input(
+            "Other Health Condition",
+            key="other_health_condition_str",
+            value="",
+        )
+        else:
+            st.session_state.other_health_condition_str = ""
+            st.session_state.health_condition_list = health_conditions
 
-    st.sidebar.segmented_control(
-        "Food Intolerance",
-        common_food_intolerances,
-        key="food_intolerance_list",
-        selection_mode="multi",
-    )
-    st.sidebar.text_input(
-        "Other Food Intolerance",
-        key="other_food_intolerance_str",
-        value="",
-    )
+        common_food_allergies = ["Peanuts", "Tree Nuts", "Milk", "Eggs", "Shellfish ", "Wheat","Other"]
+        allergies = st.sidebar.segmented_control(
+            "Allergies",
+            common_food_allergies,
+            selection_mode="multi",
+        )
+        if 'Other' in allergies:
+            st.session_state.allergies_list = allergies.remove('Other')
+            st.sidebar.text_input(
+            "Other Allergies",
+            key="other_allergies_str",
+            value="",
+        )
+        else:
+            st.session_state.other_allergies_str = ""
+            st.session_state.allergies_list = allergies
 
+        common_food_intolerances = [
+            "Lactose Intolerance",
+            "Gluten Sensitivity (Non-Celiac)",
+            "Fructose Malabsorption",
+            "Histamine Intolerance",
+            "FODMAP Intolerance",
+            "Caffeine Sensitivity",
+            "Other"
+        ]
+
+        food_intolerances = st.sidebar.multiselect(
+            "Food Intolerance",
+            common_food_intolerances,
+            placeholder = "Choose one ore multiple options"
+            #selection_mode="multi",
+        )
+        if 'Other' in food_intolerances:
+            st.session_state.food_intolerance_list = food_intolerances.remove('Other')
+            st.sidebar.text_input(
+            "Other Food Intolerance",
+            key="other_food_intolerance_str",
+            value="",
+        )
+        else:
+            st.session_state.other_food_intolerance_str = ""
+            st.session_state.food_intolerance_list = food_intolerances
+
+        reason_to_chat_with_cocineco =  [
+            "General health and wellness","Weight management",
+    "Managing chronic diseases",
+    "Improving digestion and gut health",
+    "Food allergies, intolerances, or special dietary needs",
+    "Sports and performance",
+    
+]
+        st.session_state.reason_to_chat_with_cocineco = st.sidebar.selectbox("Reason to chat with Cocineco", reason_to_chat_with_cocineco, index=0)
+
+    
+
+    else:
+        update_fields_with_profile(predefined_profiles[user_name])
+        st.sidebar.success(build_predefined_user_system_prompt(predefined_profiles[user_name]).split("****")[0])
+        st.sidebar.success(build_predefined_user_system_prompt(predefined_profiles[user_name]).split("****")[1])
+        st.sidebar.success(build_predefined_user_system_prompt(predefined_profiles[user_name]).split("****")[2])
 
 def initialize_session_state():
 
@@ -342,14 +374,24 @@ def run_conversation():
             st.chat_message("assistant").write(chat_message)
             st.session_state.messages.append({"role": "assistant", "content": chat_message})
 
+def show_missing_fields_message():
 
+    st.warning(
+                    "Please fill in all the requiered fields in the sidebar before restarting the bot."
+                )
+    for field in ["gender", "age", "height", "weight", "country"]:
+        if st.session_state[field] == None:
+            st.error(f"{field} is  {st.session_state[field]}")
+
+
+                
 def main():
 
     init_cocineco()
 
     # Streamlit app layout
 
-    if not st.session_state.authenfied_user:
+    if not st.session_state.authenticated_user:
         st.error("You must log in to view this page.")
 
     else:
@@ -382,7 +424,7 @@ def main():
             if cocineco_is_ready_to_start():
                 initialize_cocineco_bot()
             else:
-                st.warning("Please fill in all the fields in the sidebar before starting the bot.")
+                show_missing_fields_message()
 
         # Handle "Restart Bot" button
         if restart_bot:
@@ -402,9 +444,8 @@ def main():
                     st.session_state["bot_started"] = True
                     initialize_cocineco_bot()
             else:
-                st.warning(
-                    "Please fill in all the fields in the sidebar before restarting the bot."
-                )
+                show_missing_fields_message()
+                
 
         # Display the chat history
         for msg in st.session_state["messages"]:
