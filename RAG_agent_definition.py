@@ -26,7 +26,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from agents_profiles import all_in_one_agent
 from supported_countries import supported_countries
-
+import streamlit as st
 
 def init_rag_agent_from_profile(
     temperature=0.2,
@@ -35,7 +35,11 @@ def init_rag_agent_from_profile(
     chunk_size=1000,
     agent_profile=all_in_one_agent,
 ) -> RunnableWithMessageHistory:
+    
     llm = init_llm(temperature=temperature, llm_model=llm_model)
+    
+
+        
     vector_store_from_client = init_chroma_vector_store(
         embedding_model=embedding_model,
         chunk_size=chunk_size,
@@ -124,7 +128,10 @@ def init_chroma_vector_store(
 ) -> Chroma:
     embeddings = OpenAIEmbeddings(chunk_size=chunk_size, model=embedding_model)
 
-    persistent_client = chromadb.PersistentClient(path="./data/chroma_db/chroma_langchain_db")
+    if not len(folders) == 0:
+        persistent_client = chromadb.PersistentClient(path="./data/chroma_db/chroma_langchain_db")
+    else:
+        persistent_client = chromadb.PersistentClient(path="./")
     collection = persistent_client.get_or_create_collection(collection_name)
 
     if collection.count() == 0:

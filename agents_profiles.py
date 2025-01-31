@@ -60,7 +60,7 @@ all_in_one_agent = {
 }
 
 all_in_one_agent_Chat_GPT = {
-    "agent_name": "all_in_one",
+    "agent_name": "all_in_one_agent_Chat_GPT",
     "folders": [],
     "qa_prompt_generation_function": create_qa_system_all_in_one_prompt,
     "collection_name": "all_in_on_cocineco_collection",

@@ -115,7 +115,7 @@ def init_cocineco():
         st.session_state.use_authentication = True
         st.session_state.running_in_cloud = True
     else:
-        st.session_state.use_authentication = True
+        st.session_state.use_authentication = False
         st.session_state.running_in_cloud = False
 
     if "authenticated_user" not in st.session_state:

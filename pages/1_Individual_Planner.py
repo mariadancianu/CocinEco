@@ -275,6 +275,10 @@ def initialize_session_state():
         st.session_state["bot_started"] = False  # Bot running state
     if "show_user_info" not in st.session_state:
         st.session_state["show_user_info"] = True  # Toggle user info visibility
+    if st.session_state.running_in_cloud:
+        st.session_state.agent_profile = all_in_one_agent_Chat_GPT
+    else:
+        st.session_state.agent_profile = all_in_one_agent
     
     if not st.session_state.bot_started:
         st.session_state.llm = None
@@ -291,10 +295,7 @@ def initialize_session_state():
         st.session_state.csv_content = None
         st.session_state.file_buffer = None
         st.session_state.show_meal_plan = False
-        if st.session_state.running_in_cloud:
-            st.session_state.agent_profile = all_in_one_agent_Chat_GPT
-        else:
-            st.session_state.agent_profile = all_in_one_agent
+
 
 
 def cocineco_is_ready_to_start():

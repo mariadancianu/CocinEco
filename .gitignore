@@ -54,7 +54,7 @@ data/chroma_db/chroma_langchain_db/
 env/
 venv/
 ENV/
-env.bak/
+env.bak/git 
 venv.bak/
 Meal-Plan_*
 .streamlit/secr*
