@@ -4,7 +4,7 @@ import smtplib
 import streamlit as st
 
 import os
-from sendgrid.helpers.mail import Mail
+
 
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
