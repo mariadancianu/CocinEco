@@ -3,7 +3,6 @@ import smtplib
 
 import streamlit as st
 
-import sendgrid
 import os
 from sendgrid.helpers.mail import Mail
 
@@ -53,19 +52,6 @@ def send_email(name, email, message):
         return True
     except Exception as e:
         return str(e)
-
-def send_email_sendgrid(name, email, message):
-    sg = sendgrid.SendGridAPIClient(api_key=st.secrets["SENDGRID_API_KEY"])
-    from_email = "your-email@example.com"
-    to_email = "recipient@example.com"
-    
-    subject = f"New Contact Form Submission from {name}"
-    content = f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
-    
-    mail = Mail(from_email, to_email, subject, content)
-    
-    response = sg.send(mail)
-    return response.status_code
     
 def contact_form():
 
