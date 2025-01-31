@@ -3,6 +3,7 @@ import io
 import logging
 import logging.config
 import os
+import pandas as pd
 
 import streamlit as st
 from dotenv import load_dotenv
@@ -68,12 +69,19 @@ def send_meal_plan(answer):
     st.session_state.messages.append({"role": "assistant", "content": answer})
     st.chat_message("assistant").write(answer)
     # Add a download button
-    st.download_button(
+    col1,col2,col3 = st.columns([1,1,1])
+    with col1:
+        st.download_button(
         label="Download Meal Plan",
         data=file_buffer.getvalue(),
         file_name=file_name,
         mime="text/csv",
     )
+    with col2:
+        pass
+    with col3:
+        if st.button("Show Meal Plan"):
+            st.write(pd.read_csv(file_name))
 
 
 # Process User Prompt
@@ -135,7 +143,6 @@ def sidbar_inputs():
 
     if user_name == 'Other':
         st.session_state.user_name = st.sidebar.text_input("Enter Your Name")
-        st.session_state.gender = None
 
         
         st.sidebar.segmented_control(

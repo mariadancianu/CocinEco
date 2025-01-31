@@ -149,7 +149,7 @@ predefined_profiles = {
         "reason_to_chat_with_cocineco": "I want to improve my health."
     },
     "Cherry": {
-        "user_name": "Cherry"
+        "user_name": "Cherry",
         "gender": "female",
         "age": 33,
         "height": 169,
