@@ -4,7 +4,9 @@ import smtplib
 import streamlit as st
 
 import os
-
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
