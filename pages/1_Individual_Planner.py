@@ -322,7 +322,7 @@ def initialize_cocineco_bot():
         + "you with personalized nutrition advice. Let's get started! ok?"
     )
 
-    # st.chat_message("assistant").write(chat_message)
+
 
     st.session_state.messages.append({"role": "assistant", "content": chat_message})
 
@@ -363,19 +363,16 @@ def run_conversation():
                 logger.info("Context : %s", context)
                 st.session_state.messages.append({"role": "assistant", "content": answer})
 
-                answer = "Your customized Meal Plan, blending sustainability, nutrition, and your  health needs is now available under the links below."
+                #answer = "Your customized Meal Plan, blending sustainability, nutrition, and your  health needs is now available under the links below."
                 # Show the answer text in the app
-                st.session_state.messages.append({"role": "assistant", "content": answer})
-                st.chat_message("assistant").write(answer)
+                #st.session_state.messages.append({"role": "assistant", "content": answer.split("```")[0] + answer.split("```")[2]})
+                st.chat_message("assistant").write(answer.split("```")[0] + answer.split("```")[2])
 
                 answer = "Is there anything you would like me to correct in this plan?"
                 # Show the answer text in the app
                 st.session_state.messages.append({"role": "assistant", "content": answer})
                 st.chat_message("assistant").write(answer)
 
-
-                st.chat_message("assistant").write(chat_message)
-                st.session_state.messages.append({"role": "assistant", "content": chat_message})
 
             else:
                 st.session_state.messages.append({"role": "assistant", "content": answer})
