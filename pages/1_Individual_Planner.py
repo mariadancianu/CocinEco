@@ -406,6 +406,8 @@ def show_missing_fields_message():
 
 def main():
 
+    st.image('CocinEco-Screen.png')
+
     init_cocineco()
 
     # Streamlit app layout
