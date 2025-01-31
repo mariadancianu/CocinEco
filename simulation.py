@@ -1,13 +1,17 @@
-from user_profiles import predefined_profiles, init_user_agent_from_profile
-from agents_profiles import all_in_one_agent
-from RAG_agent_definition import init_rag_agent_from_profile
-from app import process_prompt, save_meal_plan_to_csv, reset_profile
-import os
-import streamlit as st
 import datetime
-
 import logging
 import logging.config
+import os
+
+import streamlit as st
+from Individual_planner import process_prompt
+from Individual_planner import reset_profile
+from Individual_planner import save_meal_plan_to_csv
+
+from agents_profiles import all_in_one_agent
+from RAG_agent_definition import init_rag_agent_from_profile
+from user_profiles import init_user_agent_from_profile
+from user_profiles import predefined_profiles
 
 logger = logging.getLogger("simulation")
 
@@ -68,8 +72,10 @@ def chat_simulation(user_name):
             print("!!! The chat is over !!!")
             break
 
+
 def main():
     chat_simulation_for_all_profiles()
+
 
 if __name__ == "__main__":
     main()
