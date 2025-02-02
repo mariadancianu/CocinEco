@@ -24,6 +24,7 @@ dependencies = [
     "pdf2image>=1.17.0",
     "pypdf>=5.1.0",
     "streamlit>=1.42.0",
+    "pysqlite3-binary>=0.5.4",
     "tiktoken>=0.8.0",
 ]
 
