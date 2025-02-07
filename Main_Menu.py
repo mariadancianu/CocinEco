@@ -33,7 +33,7 @@ def is_valid_email(email):
 
 def send_email(name, email, message):
     sender_email = "antoine.a3isp@gmail.com"  # Replace with your Gmail address
-    receiver_email = "contact.a3isp@gmail.com"  # Replace with the email that receives messages
+    receiver_email = "cocineco-contact@math-clais.ovh"  # Replace with the email that receives messages
 
     subject = f"New Contact Form Submission from {name}"
     body = f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
@@ -149,7 +149,7 @@ def main():
 
     st.image('cocineco_banner_with_logo.png')
 
-    st.markdown("Please answer our survey [Link to our Survey](https://docs.google.com/forms/d/e/1FAIpQLSduSvvWUvwmEeH1ckVlPGgcIL8sTDTDqRMx7LwUkYYiNH-SHg/viewform?usp=sharing)")
+    st.markdown("Please, help us understanding your needs and interests answering our [survey](https://docs.google.com/forms/d/e/1FAIpQLSduSvvWUvwmEeH1ckVlPGgcIL8sTDTDqRMx7LwUkYYiNH-SHg/viewform?usp=sharing).")
 
 
     init_cocineco()
