@@ -35,7 +35,7 @@ logging.basicConfig(
 )
 st.set_page_config(
     page_title="CocinEco Individual Planner",
-    page_icon="🥗",
+    page_icon="cocineco_browser_icon.png",
 )
 
 def save_meal_plan_to_csv(answer, file_name):
@@ -404,7 +404,7 @@ def show_missing_fields_message():
 
 def main():
 
-    st.image('CocinEco-Screen.png')
+    st.image('cocineco_banner_with_logo.png')
 
     init_cocineco()
 

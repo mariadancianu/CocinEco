@@ -19,7 +19,7 @@ if not os.environ.get("OPENAI_API_KEY"):
 
 st.set_page_config(
     page_title="CocinEco",
-    page_icon="🥗",
+    page_icon="cocineco_browser_icon.png",
 )
 
 
@@ -147,7 +147,7 @@ def authenticate_user():
 
 def main():
 
-    st.image('CocinEco-Screen.png')
+    st.image('cocineco_banner_with_logo.png')
 
     st.markdown("Please answer our survey [Link to our Survey](https://docs.google.com/forms/d/e/1FAIpQLSduSvvWUvwmEeH1ckVlPGgcIL8sTDTDqRMx7LwUkYYiNH-SHg/viewform?usp=sharing)")
 
