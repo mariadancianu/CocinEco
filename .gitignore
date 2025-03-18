@@ -58,5 +58,5 @@ env.bak/git
 venv.bak/
 Meal-Plan_*
 .streamlit/secr*
-Exploration*
+Exploratio*
 sendgrid.env
