@@ -6,6 +6,7 @@ from typing import List
 import bs4
 import chromadb
 import pandas as pd
+import streamlit as st
 from langchain.chains import create_history_aware_retriever
 from langchain.chains import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
@@ -26,7 +27,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from agents_profiles import all_in_one_agent
 from supported_countries import supported_countries
-import streamlit as st
+
 
 def init_rag_agent_from_profile(
     temperature=0.2,
@@ -35,11 +36,9 @@ def init_rag_agent_from_profile(
     chunk_size=1000,
     agent_profile=all_in_one_agent,
 ) -> RunnableWithMessageHistory:
-    
-    llm = init_llm(temperature=temperature, llm_model=llm_model)
-    
 
-        
+    llm = init_llm(temperature=temperature, llm_model=llm_model)
+
     vector_store_from_client = init_chroma_vector_store(
         embedding_model=embedding_model,
         chunk_size=chunk_size,

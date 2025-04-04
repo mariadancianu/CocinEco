@@ -7,10 +7,6 @@
 This repository contains the code developed by [A3I-Data Science](https://a3i-datascience.github.io/) at the occasion of a dataton proposed by [Datais](https://www.datais.es/dataton-sostenibilidad) in Madrid in November 2024.
 
 
-## Acknowledgment
-
-* This flask has been developed using this template https://github.com/arora-r/chatapp-with-voice-and-openai-outline.
-
 ## Project Scope
 
 Optimization of nutritional diets with Generative AI
@@ -51,29 +47,52 @@ Projects will be evaluated based on the effectiveness of the model in creating b
 
 ### Prerequisites
 - Install [uv](https://github.com/astral-sh/uv)
-- Install [pre-commit](https://pre-commit.com/) (Optional)
 
+### Installing the environment
+- Clone the repository
+- Run `uv sync --all-groups` to automatically create a virtual environment (using the appropriate python version) and install all the dependencies as specified in `uv.lock`
 
-### Environment Setup
-1. Clone the repo
-2. Run the following to create an virtual environment for the project and install all required dependencies.
+### Managing dependencies
+- To add/remove dependencies to the project, use `uv add` or `uv remove`. uv will then automatically ensure that versions are compatible. Examples provided below:
 
 ```
-uv venv
-source .venv/bin/activate
-uv pip install -r requirements.txt
-pre-commit install
+uv add streamlit
+uv remove pandas
+uv add "pandas>=2.0.0"
 ```
 
-3. Create an Open AI Key the key [here](https://platform.openai.com/api-keys), and add it to a `.env` file (use `.env.template` as a template)
+### Committing changes
+- This project uses pre-commit hooks. There are two ways to use it:
+    - [Install pre-commit system-wide](https://pre-commit.com/#install)
+    - Use the version of pre-commit that is already included as a dependency of this project
+
+- In both cases, `pre-commit install` should be run once, to install the pre-commit hooks.
+- If using the bundled version, it is necessary to activate the environment before running the above command:
+
+``` source .venv/bin/activate```
+
+- If committing a change that adds/updates dependencies, it is required by streamlit cloud to build and commit the `requirements.txt` file:
+
+``` uv pip compile pyproject.toml -o requirement.txt ```
+
+### Running the project locally
+- Create an Open AI Key the key [here](https://platform.openai.com/api-keys), and add it to a `.env` file (use `.env.template` as a template)
 ```
 cp .env.template .env
 ```
-**Warning** there multiple types of key that you can create on open AI platform
 
-### Running the project
+- Run the following command:
+```
+uv run streamlit run Main_Menu.py
+```
+- Alternatively, you can first activate the environment, and then simply run streamlit:
+```
+source .venv/bin/activate
+streamlit run Main_Menu.py
+```
 
-4. Start the server by running the following command
-```
-streamlit run app.py
-```
+
+## FAQ
+
+### Why do we need pysqlite-binary?
+- Due to an incompatible version of sqlite available by default on the streamlit cloud platform, it is necessary to provide the sqlite binary via python's package management. It is not really needed for local development, but ensuring that we are using the same version of sqlite both locally and on the cloud can't harm us!

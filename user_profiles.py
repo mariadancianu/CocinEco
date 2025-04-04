@@ -1,5 +1,6 @@
 from RAG_agent_definition import init_llm
 
+
 def build_predefined_user_system_prompt(user_profile):
     return f"""You are a {user_profile['gender']},
             from {user_profile['country']},
@@ -9,7 +10,7 @@ def build_predefined_user_system_prompt(user_profile):
                 To describe you, we can also say that {user_profile['user_information']}.
                 ****
                 You are suffering the following health conditions:
-                {user_profile['health_conditions']},  also have the following allergies and intolerances: 
+                {user_profile['health_conditions']},  also have the following allergies and intolerances:
                     {user_profile['allergies']} and {user_profile['food_intolerances']}.
                     ****
                     You are using a smart diet plan assistant for:
@@ -34,12 +35,11 @@ predefined_profiles = {
         "health_conditions": "",
         "allergies": "has allergy to gluten",
         "food_intolerances": "",
-
         "user_information": """have a sedentary job,
                                     is partying a lot,
                                     does a lot of sport,
                                     doesn't like to cook,""",
-        "reason_to_chat_with_cocineco": "I want to lose a bit of weight."
+        "reason_to_chat_with_cocineco": "I want to lose a bit of weight.",
     },
     "Paula": {
         "user_name": "Paula",
@@ -50,11 +50,9 @@ predefined_profiles = {
         "country": "Mexico",
         "health_conditions": "",
         "allergies": "",
-
         "food_intolerances": "",
-        
         "user_information": "would like to lose a bit of weight.",
-        "reason_to_chat_with_cocineco": "I want to lose a bit of weight."
+        "reason_to_chat_with_cocineco": "I want to lose a bit of weight.",
     },
     "Albert": {
         "user_name": "Albert",
@@ -65,11 +63,9 @@ predefined_profiles = {
         "country": "France",
         "health_conditions": "",
         "allergies": "",
-
         "food_intolerances": "",
-        
         "user_information": "is a retired professional athlete.",
-        "reason_to_chat_with_cocineco": "I want to maintain my fitness."
+        "reason_to_chat_with_cocineco": "I want to maintain my fitness.",
     },
     "Kim": {
         "user_name": "Kim",
@@ -79,13 +75,10 @@ predefined_profiles = {
         "weight": 50,
         "country": "India",
         "health_conditions": "Cancer  and is undergoing Chemo has been prescribed blood thinners and multi-vitamins.also suffered a heart attack. ",
-
         "allergies": "",
-
         "food_intolerances": "",
-        
         "user_information": "He consumes alcohol regularly. He updated the meal plan to have Soju on weekends.",
-        "reason_to_chat_with_cocineco": "I want to maintain my fitness."
+        "reason_to_chat_with_cocineco": "I want to maintain my fitness.",
     },
     "Ivo": {
         "user_name": "Ivo",
@@ -94,14 +87,11 @@ predefined_profiles = {
         "height": 187,
         "weight": 95,
         "country": "Lebanon",
-        
         "health_conditions": "",
         "allergies": "",
-
         "food_intolerances": "",
-        
         "user_information": "is interested in improving his diet to improve his weight lifting performances.",
-        "reason_to_chat_with_cocineco": "I want to improve my weight lifting performances."
+        "reason_to_chat_with_cocineco": "I want to improve my weight lifting performances.",
     },
     "Ahmad": {
         "user_name": "Ahmad",
@@ -110,12 +100,11 @@ predefined_profiles = {
         "height": 155,
         "weight": 59,
         "country": "United Kingdom",
-        
         "health_conditions": "",
         "allergies": "",
         "food_intolerances": "Celiac disease",
         "user_information": "is a swimmer and feels hungry quite often.",
-        "reason_to_chat_with_cocineco": "I want to improve my health."
+        "reason_to_chat_with_cocineco": "I want to improve my health.",
     },
     "Mia": {
         "user_name": "Mia",
@@ -126,11 +115,9 @@ predefined_profiles = {
         "country": "Switzerland",
         "health_conditions": "she is in first trimester of her pregnancy and has low haemoglobin",
         "allergies": "",
-
         "food_intolerances": "",
-        
         "user_information": "She enjoys walking. She is vegan with no social habits.She asked for a protein and iron rich meal.",
-        "reason_to_chat_with_cocineco": "I want to improve my health."
+        "reason_to_chat_with_cocineco": "I want to improve my health.",
     },
     "Cherry": {
         "user_name": "Cherry",
@@ -139,13 +126,10 @@ predefined_profiles = {
         "height": 169,
         "weight": 46,
         "country": "Italy",
-        
         "health_conditions": "",
         "allergies": "",
-
         "food_intolerances": "",
-        
         "user_information": "She wants to improve her weight and strength. She practices Yoga. She has nut allergy.",
-        "reason_to_chat_with_cocineco": "I want to  loose weight and gain strength."
+        "reason_to_chat_with_cocineco": "I want to  loose weight and gain strength.",
     },
 }
