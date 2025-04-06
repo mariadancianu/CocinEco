@@ -4,5 +4,5 @@ st.set_page_config(
     page_title="CocinEco Familly Planner",
     page_icon="cocineco_browser_icon.png",
 )
-st.image('cocineco_banner_with_logo.png')
+st.image("cocineco_banner_with_logo.png")
 st.warning("This page is under construction")

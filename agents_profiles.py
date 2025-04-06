@@ -6,8 +6,7 @@ import streamlit as st
 
 def create_qa_system_all_in_one_prompt():
     today = datetime.date.today().strftime("%Y-%m-%d")
-    return (
-        f"""You are a Nutrition assistant for question-answering tasks.
+    return f"""You are a Nutrition assistant for question-answering tasks.
         The date is {today}.
         You are speaking to a  user of {st.session_state.gender} gender, of {st.session_state.age} years of age,
         with a height of {st.session_state.height}  cm and a weight of {st.session_state.weight}  kg from the country {st.session_state.country}.
@@ -44,7 +43,6 @@ def create_qa_system_all_in_one_prompt():
         If you are asked questions about anything else but health, nutrition, agriculture,
         food or diet, you will answer that you don't know.
         If you don't know the answer, just say that you don't know."""
-    )
 
 
 all_in_one_agent = {

@@ -3,20 +3,19 @@ import io
 import logging
 import logging.config
 import os
-import pandas as pd
 
+import pandas as pd
 import streamlit as st
 from dotenv import load_dotenv
 from langchain_core.runnables.history import RunnableWithMessageHistory
-
 
 from agents_profiles import all_in_one_agent
 from agents_profiles import all_in_one_agent_Chat_GPT
 from Main_Menu import init_cocineco
 from RAG_agent_definition import init_rag_agent_from_profile
 from supported_countries import supported_countries
-from user_profiles import predefined_profiles
 from user_profiles import build_predefined_user_system_prompt
+from user_profiles import predefined_profiles
 
 load_dotenv()  # Load environment variables
 
@@ -38,6 +37,7 @@ st.set_page_config(
     page_icon="cocineco_browser_icon.png",
 )
 
+
 def save_meal_plan_to_csv(answer, file_name):
     if st.session_state.user_name != "Unnamed User":
         with open(file_name, "w") as text_file:
@@ -48,9 +48,15 @@ def send_meal_plan(answer):
     # Generate a filename with the current timestamp
 
     if st.session_state.user_name != "Unnamed User":
-        st.session_state.file_name = f"Meal-Plan_{st.session_state.user_name}_{datetime.datetime.now().strftime('%Y-%m-%d %H-%M-%S')}.csv".replace(' ','_')
+        st.session_state.file_name = f"Meal-Plan_{st.session_state.user_name}_{datetime.datetime.now().strftime('%Y-%m-%d %H-%M-%S')}.csv".replace(
+            " ", "_"
+        )
     else:
-        st.session_state.file_name = f"Meal-Plan_{datetime.datetime.now().strftime('%Y-%m-%d %H-%M-%S')}.csv".replace(' ','_')
+        st.session_state.file_name = (
+            f"Meal-Plan_{datetime.datetime.now().strftime('%Y-%m-%d %H-%M-%S')}.csv".replace(
+                " ", "_"
+            )
+        )
 
     # Extract the CSV content from the answer
     st.session_state.csv_content = answer.split("```")[1]
@@ -63,50 +69,46 @@ def send_meal_plan(answer):
 
     # Replace the placeholder message with a user-friendly message
 
-    
-    
+
 def get_shopping_shopping_list_from_df(meal_plan_df):
-    #@todo
+    # @todo
 
     return meal_plan_df.Ingredients
 
 
-def  show_output_buttons():
+def show_output_buttons():
     # Add a download button
 
-    
     if st.session_state.file_name is not None:
-        meal_plan_df = pd.read_csv(st.session_state.file_name, on_bad_lines='skip')
+        meal_plan_df = pd.read_csv(st.session_state.file_name, on_bad_lines="skip")
 
         st.divider()
-        col1,col2,col3 = st.columns([1,1,1])
+        col1, col2, col3 = st.columns([1, 1, 1])
         with col1:
 
-            #st.download_button(
-            #label="Download displayed data as a CSV",
-            #data=pd.read_csv(st.session_state.file_name),
-            #file_name=st.session_state.file_name)
+            # st.download_button(
+            # label="Download displayed data as a CSV",
+            # data=pd.read_csv(st.session_state.file_name),
+            # file_name=st.session_state.file_name)
 
             st.download_button(
-            label="Download Meal Plan",
-            data= st.session_state.file_buffer.getvalue(),
-            file_name= st.session_state.file_name,
-            mime="text/csv",
-        )
+                label="Download Meal Plan",
+                data=st.session_state.file_buffer.getvalue(),
+                file_name=st.session_state.file_name,
+                mime="text/csv",
+            )
         with col2:
             if st.button("Hide/Show Meal Plan"):
                 st.session_state["show_meal_plan"] = not st.session_state["show_meal_plan"]
-            
+
         with col3:
             if st.button("Hide/Show Shopping List"):
                 st.session_state["show_shopping_list"] = not st.session_state["show_shopping_list"]
-                st.warning('Work In Progress!')
+                st.warning("Work In Progress!")
 
         if st.session_state.show_meal_plan:
 
             st.write(meal_plan_df)
-
-
 
 
 # Process User Prompt
@@ -148,11 +150,10 @@ def update_fields_with_profile(profile_data):
     st.session_state.weight = profile_data["weight"]
     st.session_state.country = profile_data["country"]
     st.session_state.health_conditions = profile_data["health_conditions"]
-    
+
     st.session_state.allergies = profile_data["allergies"]
-    
+
     st.session_state.food_intolerances = profile_data["food_intolerances"]
-    
 
     if "user_name" in profile_data.keys():
         st.session_state.user_name = profile_data["user_name"]
@@ -164,40 +165,42 @@ def sidbar_inputs():
 
     st.sidebar.header("User Inputs")
 
-    user_name =st.sidebar.selectbox("User Name", ['Other'] + list(predefined_profiles.keys()),index=0)
-
-    if user_name == 'Other':
-        st.session_state.user_name = st.sidebar.text_input("Enter Your Name")
-
-        
-        st.sidebar.segmented_control(
-                "Gender",
-                ["male", "female"],
-                key="gender",
-            )
-        st.sidebar.number_input("Age",
-        min_value=10,
-        max_value=100,
-        step=1,
-        value=None,
-        key="age",
-        )
-        st.sidebar.number_input(
-        "Height (cm)",
-        min_value=120,
-        max_value=250,
-        step=1,
-        value=None,
-        key="height",)
-        st.sidebar.number_input(
-        "Weight (kg)",
-        min_value=20,  # Minimum weight
-        max_value=300,  # Maximum weight
-        step=1,
-        value=None,
-        key="weight",
+    user_name = st.sidebar.selectbox(
+        "User Name", ["Other"] + list(predefined_profiles.keys()), index=0
     )
 
+    if user_name == "Other":
+        st.session_state.user_name = st.sidebar.text_input("Enter Your Name")
+
+        st.sidebar.segmented_control(
+            "Gender",
+            ["male", "female"],
+            key="gender",
+        )
+        st.sidebar.number_input(
+            "Age",
+            min_value=10,
+            max_value=100,
+            step=1,
+            value=None,
+            key="age",
+        )
+        st.sidebar.number_input(
+            "Height (cm)",
+            min_value=120,
+            max_value=250,
+            step=1,
+            value=None,
+            key="height",
+        )
+        st.sidebar.number_input(
+            "Weight (kg)",
+            min_value=20,  # Minimum weight
+            max_value=300,  # Maximum weight
+            step=1,
+            value=None,
+            key="weight",
+        )
 
         st.sidebar.segmented_control(
             "Select Your Country",
@@ -205,15 +208,12 @@ def sidbar_inputs():
             key="country",
         )
 
-
-
         common_health_conditions = [
             "Type 2 Diabetes",
             "Cardiovascular Disease",
             "Hypertension",
             "Osteoporosis",
             "Iron Deficiency Anemia",
-            
         ]
 
         common_food_intolerances = [
@@ -223,48 +223,58 @@ def sidbar_inputs():
             "Histamine Intolerance",
             "FODMAP Intolerance",
             "Caffeine Sensitivity",
-            
         ]
 
         common_food_allergies = ["Peanuts", "Tree Nuts", "Milk", "Eggs", "Shellfish ", "Wheat"]
 
-        conditions_dict = {'allergies': common_food_allergies, 
-                           'food_intolerances': common_food_intolerances, 
-                           'health_conditions': common_health_conditions}
-        
+        conditions_dict = {
+            "allergies": common_food_allergies,
+            "food_intolerances": common_food_intolerances,
+            "health_conditions": common_health_conditions,
+        }
+
         for cond_type in conditions_dict.keys():
-            
+
             conditions = st.sidebar.segmented_control(
-                cond_type.replace('_',' ').title(),
-                conditions_dict[cond_type]+["Other"],
+                cond_type.replace("_", " ").title(),
+                conditions_dict[cond_type] + ["Other"],
                 selection_mode="multi",
             )
 
-            st.session_state[cond_type] = ' '.join(conditions)
-            if 'Other' in conditions:
-                st.session_state[cond_type] = st.session_state[cond_type].replace('Other','')
+            st.session_state[cond_type] = " ".join(conditions)
+            if "Other" in conditions:
+                st.session_state[cond_type] = st.session_state[cond_type].replace("Other", "")
                 other_health_conditions = st.sidebar.text_input(
-                "Other " + cond_type.replace('_',' ').title(),
-                value="",
-                 )
-                st.session_state[cond_type] =  st.session_state[cond_type] + ' and also '+ other_health_conditions
+                    "Other " + cond_type.replace("_", " ").title(),
+                    value="",
+                )
+                st.session_state[cond_type] = (
+                    st.session_state[cond_type] + " and also " + other_health_conditions
+                )
 
-
-
-        reason_to_chat_with_cocineco =  ["General health and wellness","Weight management",
-                                            "Managing chronic diseases",
-                                            "Improving digestion and gut health",
-                                            "Food allergies, intolerances, or special dietary needs",
-                                            "Sports and performance",]
-        st.session_state.reason_to_chat_with_cocineco = st.sidebar.selectbox("Reason to chat with Cocineco", reason_to_chat_with_cocineco, index=0)
-
-    
+        reason_to_chat_with_cocineco = [
+            "General health and wellness",
+            "Weight management",
+            "Managing chronic diseases",
+            "Improving digestion and gut health",
+            "Food allergies, intolerances, or special dietary needs",
+            "Sports and performance",
+        ]
+        st.session_state.reason_to_chat_with_cocineco = st.sidebar.selectbox(
+            "Reason to chat with Cocineco", reason_to_chat_with_cocineco, index=0
+        )
 
     else:
         update_fields_with_profile(predefined_profiles[user_name])
-        st.sidebar.success(build_predefined_user_system_prompt(predefined_profiles[user_name]).split("****")[0])
-        st.sidebar.success(build_predefined_user_system_prompt(predefined_profiles[user_name]).split("****")[1])
-        st.sidebar.success(build_predefined_user_system_prompt(predefined_profiles[user_name]).split("****")[2])
+        st.sidebar.success(
+            build_predefined_user_system_prompt(predefined_profiles[user_name]).split("****")[0]
+        )
+        st.sidebar.success(
+            build_predefined_user_system_prompt(predefined_profiles[user_name]).split("****")[1]
+        )
+        st.sidebar.success(
+            build_predefined_user_system_prompt(predefined_profiles[user_name]).split("****")[2]
+        )
 
 
 def initialize_session_state():
@@ -279,7 +289,7 @@ def initialize_session_state():
         st.session_state.agent_profile = all_in_one_agent_Chat_GPT
     else:
         st.session_state.agent_profile = all_in_one_agent
-    
+
     if not st.session_state.bot_started:
         st.session_state.llm = None
         st.session_state.embeddings = None
@@ -295,7 +305,6 @@ def initialize_session_state():
         st.session_state.csv_content = None
         st.session_state.file_buffer = None
         st.session_state.show_meal_plan = False
-
 
 
 def cocineco_is_ready_to_start():
@@ -321,8 +330,6 @@ def initialize_cocineco_bot():
         + "I will ask you a few questions to understand you better and provide"
         + "you with personalized nutrition advice. Let's get started! ok?"
     )
-
-
 
     st.session_state.messages.append({"role": "assistant", "content": chat_message})
 
@@ -357,22 +364,21 @@ def run_conversation():
                     chat_history=st.session_state.chat_history,
                 )
             if "```" in answer:
-                number_of_messages = number_of_messages_max-5
+                number_of_messages = number_of_messages_max - 5
                 send_meal_plan(answer)
                 logger.info("Assistant : %s", answer)
                 logger.info("Context : %s", context)
                 st.session_state.messages.append({"role": "assistant", "content": answer})
 
-                #answer = "Your customized Meal Plan, blending sustainability, nutrition, and your  health needs is now available under the links below."
+                # answer = "Your customized Meal Plan, blending sustainability, nutrition, and your  health needs is now available under the links below."
                 # Show the answer text in the app
-                #st.session_state.messages.append({"role": "assistant", "content": answer.split("```")[0] + answer.split("```")[2]})
+                # st.session_state.messages.append({"role": "assistant", "content": answer.split("```")[0] + answer.split("```")[2]})
                 st.chat_message("assistant").write(answer.split("```")[0] + answer.split("```")[2])
 
                 answer = "Is there anything you would like me to correct in this plan?"
                 # Show the answer text in the app
                 st.session_state.messages.append({"role": "assistant", "content": answer})
                 st.chat_message("assistant").write(answer)
-
 
             else:
                 st.session_state.messages.append({"role": "assistant", "content": answer})
@@ -393,18 +399,18 @@ def run_conversation():
             st.chat_message("assistant").write(chat_message)
             st.session_state.messages.append({"role": "assistant", "content": chat_message})
 
+
 def show_missing_fields_message():
 
-    st.warning(
-                    "Please fill in all the requiered fields in the sidebar before restarting the bot."
-                )
+    st.warning("Please fill in all the requiered fields in the sidebar before restarting the bot.")
     for field in ["gender", "age", "height", "weight", "country"]:
         if st.session_state[field] == None:
             st.error(f"{field} is  {st.session_state[field]}")
 
+
 def main():
 
-    st.image('cocineco_banner_with_logo.png')
+    st.image("cocineco_banner_with_logo.png")
 
     init_cocineco()
 

@@ -1,18 +1,15 @@
+__import__("pysqlite3")
+import sys
+
+sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
+
 import os
+import re  # For regex validation
 import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 import streamlit as st
-
-import os
-__import__('pysqlite3')
-import sys
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
-
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-import re  # For regex validation
-
-
 
 if not os.environ.get("OPENAI_API_KEY"):
     os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
@@ -30,10 +27,11 @@ def is_valid_email(email):
     return re.match(email_regex, email)
 
 
-
 def send_email(name, email, message):
     sender_email = "antoine.a3isp@gmail.com"  # Replace with your Gmail address
-    receiver_email = "cocineco-contact@math-clais.ovh"  # Replace with the email that receives messages
+    receiver_email = (
+        "cocineco-contact@math-clais.ovh"  # Replace with the email that receives messages
+    )
 
     subject = f"New Contact Form Submission from {name}"
     body = f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
@@ -54,9 +52,9 @@ def send_email(name, email, message):
         return True
     except Exception as e:
         return str(e)
-    
-def contact_form():
 
+
+def contact_form():
 
     # Set page title
     st.subheader("📩 Contact Us")
@@ -66,7 +64,7 @@ def contact_form():
         name = st.text_input("Your Name")
         email = st.text_input("Your Email")
         message = st.text_area("Your Message")
-        
+
         # Submit button inside the form
         submit_button = st.form_submit_button(label="Send Message")
 
@@ -82,23 +80,23 @@ def contact_form():
 
             subject_to_sender = "✅ Thank You for Contacting Us"
             body_to_sender = (
-                f"Hello {name},\n\n"+
-                "Thank you for reaching out! We've received your message and will get back to you soon.\n\n"+
-                "Your Message:\n"+
-                f"{message}\n\n"+
-                "Best regards,\nYour Business Name"
+                f"Hello {name},\n\n"
+                + "Thank you for reaching out! We've received your message and will get back to you soon.\n\n"
+                + "Your Message:\n"
+                + f"{message}\n\n"
+                + "Best regards,\nYour Business Name"
             )
             status_to_sender = send_email(email, subject_to_sender, body_to_sender)
 
             # Show success or error messages
             if status_to_you is True and status_to_sender is True:
-                st.success(f"✅ Thank you {name}, your message has been sent. A confirmation email has also been sent to {email}.")
+                st.success(
+                    f"✅ Thank you {name}, your message has been sent. A confirmation email has also been sent to {email}."
+                )
             else:
-                st.error(f"⚠️ Error sending message: {status_to_you if status_to_you is not True else status_to_sender}")
-
-
-
-
+                st.error(
+                    f"⚠️ Error sending message: {status_to_you if status_to_you is not True else status_to_sender}"
+                )
 
 
 def is_running_on_streamlit_cloud():
@@ -147,28 +145,23 @@ def authenticate_user():
 
 def main():
 
-    st.image('cocineco_banner_with_logo.png')
+    st.image("cocineco_banner_with_logo.png")
 
-    st.markdown("Please, help us understanding your needs and interests answering our [survey](https://docs.google.com/forms/d/e/1FAIpQLSduSvvWUvwmEeH1ckVlPGgcIL8sTDTDqRMx7LwUkYYiNH-SHg/viewform?usp=sharing).")
-
+    st.markdown(
+        "Please, help us understanding your needs and interests answering our [survey](https://docs.google.com/forms/d/e/1FAIpQLSduSvvWUvwmEeH1ckVlPGgcIL8sTDTDqRMx7LwUkYYiNH-SHg/viewform?usp=sharing)."
+    )
 
     init_cocineco()
-
 
     if not st.session_state.authenticated_user and st.session_state.use_authentication:
 
         authenticate_user()
-                
 
     else:
         st.session_state.authenticated_user = True
         st.sidebar.success("Select a Planner Above.")
 
-    
-    
     contact_form()
-
-
 
 
 main()
